@@ -14,7 +14,6 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.6.9",
-    "angular-bootstrap-md": "^5.2.0",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "jade": "^1.11.0",
