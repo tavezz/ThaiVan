@@ -1,0 +1,12 @@
+.view {
+    background: url("/publics/img/486625.jpg")no-repeat center center;
+    background-size: cover;
+}
+#myAds {
+    width: fit-content;
+    margin: 0 auto;
+    background-color:rgba(0, 0, 0, 0.5);
+    border: solid;
+    
+
+}

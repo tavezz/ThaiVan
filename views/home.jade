@@ -1,0 +1,227 @@
+extends ./layouts/base
+
+block myScript
+  link(rel='stylesheet', href='/publics/css/home.css')
+  script(type='text/javascript', src='/publics/js/home.js', defer='')
+
+block title
+  title ThaiVan - Home
+
+block content
+  header
+    include ./layouts/navbar
+  
+    .view.intro-2
+      .full-bg-img
+        .mask
+          .container.flex-center
+            .RoundBg(style='background-color:rgba(0,0,0,0.3);padding-left: 30px;border-radius:100px;')
+              .row.flex-center.pt-5.mt-3
+                .col-md-12.col-lg-6.text-center.text-md-left.margins
+                  .white-text
+                    h1.h1-responsive.wow.fadeInLeft(data-wow-delay='0.3s', style='visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;')
+                      strong.font-weight-bold Download
+                      |  the application
+                    hr.hr-light.wow.fadeInLeft(data-wow-delay='0.3s', style='visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;')
+                    h6.wow.fadeInLeft(data-wow-delay='0.3s', style='visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;')
+                      | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem repellendus quasi fuga nesciunt
+                      | dolorum nulla magnam veniam sapiente, fugiat! Commodi sequi non animi ea dolor molestiae
+                      | iste.
+                      | 
+                    br
+                    br
+                    .container.flex-center  
+                      a.btn.btn-primary.btn-rounded.font-weight-bold.wow.fadeInLeft.waves-effect.waves-light(data-wow-delay='0.3s', style='visibility: visible; animation-name: fadeInLeft; animation-delay: 0.3s;')
+                        i.fa.fa-android.pr-2(aria-hidden='true')
+                        |  Play store
+                .col-md-12.col-lg-6.wow.fadeInRight(data-wow-delay='0.3s', style='visibility: visible; animation-name: fadeInRight; animation-delay: 0.3s;')
+                  img.img-fluid(src='https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png', alt='')
+    
+  //หน้าต่างลงทะเบียน
+
+  div()   
+    #modalRegisterForm.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header.text-center
+            h4.modal-title.w-100.font-weight-bold ลงทะเบียน
+            button#close_reg.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body.mx-3
+            form(name="regForm")
+              //ชื่อจริง
+              .md-form.mb-4
+                i.fa.fa-user.prefix.grey-text
+                input#regForm_firstname.form-control(name="reg_firstname", type='text', ng-model="firstname", maxlength="50")
+                label(for='regForm_firstname') <!-- data-error='✖', data-success='✔', -->
+                  | ชื่อจริง
+                  strong(style="color:red")  *
+                i(style="font-size:85%; color:#9e9e9e;") กรอกชื่อจริงภาษาไทยไม่ต้องมีคำนำหน้า 1-50 ตัวอักษร
+                i(style="font-size:85%; color:red;", ng-if="firstname.length < 1 && regForm.reg_firstname.$touched")   ไม่ถูกต้อง
+              //นามสกุลจริง
+              .md-form.mb-4
+                i.fa.fa-user.prefix.grey-text
+                input#regForm_lastname.form-control(name="reg_lastname", type='text', ng-model="lastname", maxlength="50")
+                label(for='regForm_lastname') 
+                  | นามสกุลจริง
+                  strong(style="color:red")  *
+                i(style="font-size:85%; color:#9e9e9e;") กรอกนามสกุลจริงภาษาไทย 1-50 ตัวอักษร
+                i(style="font-size:85%; color:red;", ng-if="lastname.length < 1 && regForm.reg_lastname.$touched")   ไม่ถูกต้อง
+              //อีเมล
+              .md-form.mb-4
+                i.fa.fa-envelope.prefix.grey-text
+                input#regForm_email.form-control(name="reg_email", type='email', ng-model="email", maxlength="100", non-space)
+                label(for='regForm_email') 
+                  | อีเมล
+                  strong(style="color:red")  *
+                i(style="font-size:85%; color:#9e9e9e;") กรอกอีเมลที่สามารถใช้งานได้จริง
+                i(style="font-size:85%; color:red;", ng-if="regForm.reg_email.$touched && (email.length < 1 || regForm.reg_email.$error.email)")   ไม่ถูกต้อง
+              //ชื่อผู้ใช้งาน
+              .md-form.mb-4
+                i.fa.fa-user-circle.prefix.grey-text
+                input#regForm_username.form-control(name="reg_username", type='text', ng-model="username", maxlength="16", non-space)
+                label(for='regForm_username') 
+                  | ชื่อผู้ใช้งาน
+                  strong(style="color:red")  *
+                i(style="font-size:85%; color:#9e9e9e;") กรอกชื่อผู้ใช้งาน 6-16 ตัวอักษร เฉพาะ a-z A-Z 0-9
+                i(style="font-size:85%; color:red;", ng-if="username.length < 6 && regForm.reg_username.$touched")   ไม่ถูกต้อง
+              //รหัสผ่าน
+              .md-form.mb-4
+                i.fa.fa-lock.prefix.grey-text
+                input#regForm_password.form-control(name="reg_password", type='password', ng-model="password", maxlength="32", non-space)
+                label(for='regForm_password') 
+                  | รหัสผ่าน
+                  strong(style="color:red")  *
+                i(style="font-size:85%; color:#9e9e9e;") กรอกรหัสผ่าน 8-32 ตัวอักษร เฉพาะ a-z A-Z 0-9
+                i(style="font-size:85%; color:red;", ng-if="password.length < 8 && regForm.reg_password.$touched")   ไม่ถูกต้อง
+              //ยืนยันรหัสผ่าน
+              .md-form
+                i.fa.fa-lock.prefix.grey-text
+                input#regForm_repassword.form-control(name="reg_repassword", type='password', ng-model="repassword", maxlength="32", non-space)
+                label(for='regForm_repassword') 
+                  | ยืนยันรหัสผ่าน
+                  strong(style="color:red")  *
+                i(style="color:white;") .
+                i(style="font-size:85%; color:red;",ng-show="password != repassword && regForm.reg_repassword.$touched") ยืนยันรหัสผ่านให้ถูกต้อง
+                //i(style="font-size:85%; color:#9e9e9e;") กรอกรหัสผ่านซ้ำอีกรอบเพื่อความถูกต้อง
+              p(style="color:red; margin-top:30px")  * กรอกข้อมูลให้ครบถ้วน
+          
+          .modal-footer.d-flex.justify-content-center
+            button.btn.btn-deep-orange(ng-show="true",ng-click="SendData()", ng-disabled="firstname.length < 1 || lastname.length < 1 || (email.length < 1 || regForm.reg_email.$error.email) || username.length < 6 || password.length < 8 || password != repassword") ตกลง
+    
+    //หน้าต่างเข้าสู่ระบบ
+
+    #modalLoginForm.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header.text-center
+            h4.modal-title.w-100.font-weight-bold เข้าสู่ระบบ
+            button#close_Login.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') ×
+          .modal-body.mx-3
+            form(name="LoginForm")
+              //ชื่อผู้ใช้งาน
+              .md-form.mb-4
+                i.fa.fa-user-circle.prefix.grey-text
+                input#LoginForm_username.form-control(name="Login_username", type='text', ng-model="login_username", maxlength="16", non-space)
+                label(for='LoginForm_username') 
+                  | ชื่อผู้ใช้งาน
+                  strong(style="color:red")  *
+                i(style="font-size:85%; color:#9e9e9e;") กรอกชื่อผู้ใช้งาน 6-16 ตัวอักษร เฉพาะ a-z A-Z 0-9
+                i(style="font-size:85%; color:red;", ng-if="login_username.length < 6 && LoginForm.Login_username.$touched")   ไม่ถูกต้อง
+              //รหัสผ่าน
+              .md-form.mb-4
+                i.fa.fa-lock.prefix.grey-text
+                input#LoginForm_password.form-control(name="Login_password", type='password', ng-model="login_password", maxlength="32", non-space)
+                label(for='LoginForm_password') 
+                  | รหัสผ่าน
+                  strong(style="color:red")  *
+                i(style="font-size:85%; color:#9e9e9e;") กรอกรหัสผ่าน 8-32 ตัวอักษร เฉพาะ a-z A-Z 0-9
+                i(style="font-size:85%; color:red;", ng-if="login_password.length < 8 && LoginForm.Login_password.$touched")   ไม่ถูกต้อง
+          
+          .modal-footer.d-flex.justify-content-center
+            button.btn.btn-deep-orange(ng-show="true",ng-click="Login()", ng-disabled="login_username.length < 6 || login_password.length < 8") ตกลง
+
+  //หน้าต่างแสดงผลการลงทะเบียน
+
+  button#openRegModal(data-toggle='modal', data-target='#RegModal',hidden)
+  #RegModal.modal.fade
+    .modal-dialog.modal-sm
+      .modal-content
+        // Modal Header
+        .modal-header
+          h4.modal-title สำเร็จ
+        // Modal body
+        .modal-body
+          | กำลังกลับสู่หน้าหลักใน {{count_re}}
+        // Modal footer
+        .modal-footer
+          button.btn.btn-danger(type='button', data-dismiss='modal') Close
+  
+  //หน้าต่างแสดงผลการลอกอิน
+  
+  button#openLoginModal(data-toggle='modal', data-target='#LoginModal',hidden)
+  #LoginModal.modal.fade
+    .modal-dialog.modal-sm
+      .modal-content
+        // Modal Header
+        .modal-header
+          h4.modal-title สำเร็จ
+        // Modal body
+        .modal-body
+          | กำลังกลับสู่หน้าหลักใน {{count_re}}
+        // Modal footer
+        .modal-footer
+          button.btn.btn-danger(type='button', data-dismiss='modal') Close
+  
+  //ul
+    - for item in result
+        li= item.user_username
+  //- var vs = '';
+  if sess
+    p  #{UsrData.user_username}
+  
+  
+  // Footer
+  footer.page-footer.text-center.font-small.mt-4.wow.fadeIn.stylish-color-dark
+    // Call to action
+    .pt-4
+      a.btn.btn-primary(href='https://mdbootstrap.com/getting-started/', target='_blank', role='button')
+        | Download ThaiVan
+        i.fa.fa-download.ml-2
+      a.btn.btn-primary(href='https://mdbootstrap.com/bootstrap-tutorial/', target='_blank', role='button')
+        | Start free tutorial
+        i.fa.fa-graduation-cap.ml-2
+    // /.Call to action
+    hr.my-4
+    // Social icons
+    .pb-4
+      a(href='https://www.facebook.com/mdbootstrap', target='_blank')
+        i.fa.fa-facebook.mr-3
+      a(href='https://twitter.com/MDBootstrap', target='_blank')
+        i.fa.fa-twitter.mr-3
+      a(href='https://www.youtube.com/watch?v=7MUISDJ5ZZ4', target='_blank')
+        i.fa.fa-youtube.mr-3
+      a(href='https://plus.google.com/u/0/b/107863090883699620484', target='_blank')
+        i.fa.fa-google-plus.mr-3
+      a(href='https://dribbble.com/mdbootstrap', target='_blank')
+        i.fa.fa-dribbble.mr-3
+      a(href='https://pinterest.com/mdbootstrap', target='_blank')
+        i.fa.fa-pinterest.mr-3
+      a(href='https://github.com/mdbootstrap/bootstrap-material-design', target='_blank')
+        i.fa.fa-github.mr-3
+      a(href='http://codepen.io/mdbootstrap/', target='_blank')
+        i.fa.fa-codepen.mr-3
+    // Social icons
+    // Copyright
+    .footer-copyright.py-3
+      | © 2018 Copyright:
+      a(href='https://mdbootstrap.com/bootstrap-tutorial/', target='_blank')  thaivan.xyz 
+    // /.Copyright
+  // /.Footer
+  
+  
+  
+
+
+
